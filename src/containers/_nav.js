@@ -333,7 +333,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: 'Invoice Listrik',
-        to: '/buttons/buttons',
+        to: '/invoice/listrik',
       },
       {
         _tag: 'CSidebarNavItem',
