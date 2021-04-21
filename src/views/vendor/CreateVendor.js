@@ -34,20 +34,6 @@ export default class CreateVendor extends React.Component {
         this.setState(newData);
         console.log(newData);
       }
-      // componentDidMount() {
-      //   VendorService.getVendorById(this.state.id).then((res) => {
-      //     let currentVendor = res.data;
-      //     this.setState({
-      //       vendorAddress: currentVendor.VendorAddress,
-      //       vendorName: currentVendor.VendorName,
-      //       vendorRepresentation: currentVendor.VendorRepresentation,
-      //       email: currentVendor.email,
-      //       kota: currentVendor.kota,
-      //       postCode: currentVendor.postCode,
-      //       telepon: currentVendor.telepon,
-      //     });
-      //   });
-      // }
       
       createVendor = (e) => {
         e.preventDefault();

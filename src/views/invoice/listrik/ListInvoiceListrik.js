@@ -65,13 +65,12 @@ export default class ListInvoiceListrik extends React.Component {
                   <td>
                     <CButton color="primary">Search</CButton>
                     <CButton
-                      type="submit" size="sm"
+                      type="submit" 
                       color="primary"
                       style={{ marginLeft: "10px" }}
                       onClick={this.addInvoice}
                     >
                       Add Invoice
-                      <CIcon name="cil-plus"/>
                     </CButton>
                   </td>
                 </thead>
