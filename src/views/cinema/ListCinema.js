@@ -23,15 +23,17 @@ export default class ListAllCinema extends React.Component {
     this.state = {
       cinemas: [],
       show: false,
+      cinemaId: null
     };
     this.deleteCinema = this.deleteCinema.bind(this);
     this.addCinema = this.addCinema.bind(this);
     this.updateCinema = this.updateCinema.bind(this);
     this.toggle = this.toggle.bind(this);
   }
-  toggle(id) {
-    this.setState({ show: !this.state.show,
-    cinemaId: id  });
+  toggle() {
+    this.setState({
+      show: !this.state.show,
+    });
   }
   addCinema() {
     this.props.history.push("/setting/add-cinema");
@@ -39,14 +41,23 @@ export default class ListAllCinema extends React.Component {
   updateCinema(id) {
     this.props.history.push(`/setting/update-cinema/${id}`);
   }
+
+  showModal(id) {
+    this.setState({
+      show: !this.state.show
+      , cinemaId: id
+    })
+    console.log(id);
+  }
+
   deleteCinema(id) {
 
-      CinemaService.deleteCinema(id).then((res) => {
-        this.setState({
-          cinemas: this.state.cinemas.filter((cinema) => cinema.id !== id),
-          show: false
-        });
+    CinemaService.deleteCinema(id).then((res) => {
+      this.setState({
+        cinemas: this.state.cinemas.filter((cinema) => cinema.id !== id),
+        show: false
       });
+    });
   }
 
   componentDidMount() {
@@ -111,21 +122,12 @@ export default class ListAllCinema extends React.Component {
                         <Button
                           color="danger"
                           style={{ marginLeft: "10px" }}
-                          onClick={this.toggle(cinema.id)}
-                          // onClick={() => this.deleteCinema(cinema.id)}
+                          onClick={() => this.showModal(cinema.id)}
+                        // onClick={() => this.deleteCinema(cinema.id)}
                         >
                           Delete
                         </Button>
-                        <CModal show={this.state.show} onClose={this.toggle(cinema.id)}>
-                          <CModalHeader closeButton>Deleting cinema</CModalHeader>
-                          <CModalBody>Apa anda yakin ingin menghapus {this.state.cinemaId}?</CModalBody>
-                          <CModalFooter>
-                            <CButton color="primary"  onClick={() => this.deleteCinema(cinema.id)}>Delete</CButton>{" "}
-                            <CButton color="secondary" onClick={this.toggle(cinema.id)}>
-                              Cancel
-                            </CButton>
-                          </CModalFooter>{" "}
-                        </CModal>
+
                       </td>
                     </tr>
                   ))}
@@ -133,6 +135,16 @@ export default class ListAllCinema extends React.Component {
               </Table>
               ;
             </CardBody>
+            <CModal show={this.state.show} onClose={this.toggle}>
+              <CModalHeader closeButton>Deleting cinema</CModalHeader>
+              <CModalBody>Apa anda yakin ingin menghapus ? {this.state.cinemaId}</CModalBody>
+              <CModalFooter>
+                <CButton color="primary" onClick={() => this.deleteCinema(this.state.cinemaId)} >Delete</CButton>{" "}
+                <CButton color="secondary" onClick={this.toggle} >
+                  Cancel
+                            </CButton>
+              </CModalFooter>{" "}
+            </CModal>
           </Card>
         </Col>
       </Row>
