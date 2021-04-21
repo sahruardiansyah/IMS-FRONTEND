@@ -140,12 +140,6 @@ export default class CreateCinema extends React.Component {
                   <CLabel htmlFor="email">Kota</CLabel>
                 </CCol>
                 <CCol sm="2">
-                  {/* <CInput
-                        id="email"
-                        name="email"
-                        onChange={this.onChange}
-                        value={this.state.email}
-                      /> */}
                   <CSelect name="select">
                     <option value="0">Please select</option>
                   </CSelect>
