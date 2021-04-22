@@ -64,7 +64,7 @@ export default class ListAllCinema extends React.Component {
       keterangan: this.state.data.keterangan,
     };
     newData[e.target.name] = e.target.value;
-    this.setState(newData);
+    this.setState({data:newData});
     console.log(newData);
   }
   createCinema = (e) => {
@@ -80,8 +80,11 @@ export default class ListAllCinema extends React.Component {
       keterangan: this.state.data.keterangan,
     };
     CinemaService.createCinema(bioskop).then((res) => {
+      
       this.setState({showCreateModal: false})
+      
       console.log(res);
+      return this.reloadTable();
     });
   };
   toggle() {
@@ -123,10 +126,14 @@ export default class ListAllCinema extends React.Component {
     });
   }
 
-  componentDidMount() {
+  reloadTable(){
     CinemaService.getCinema().then((res) => {
       this.setState({ cinemas: res.data });
     });
+  }
+
+  componentDidMount() {
+   this.reloadTable();
   }
   render() {
     return (
@@ -224,6 +231,7 @@ export default class ListAllCinema extends React.Component {
               </CModalFooter>{" "}
             </CModal>
             <CModal
+              size="lg"
               show={this.state.showCreateModal}
               onClose={this.toggleCreate}>
             <CModalHeader>Add New Cinema</CModalHeader>
