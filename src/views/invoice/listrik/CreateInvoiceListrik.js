@@ -75,7 +75,7 @@ export default class CreateInvoiceLsitrik extends React.Component {
       status: this.state.status,
     };
     newData[e.target.name] = e.target.value;
-    this.setState({data:newData});
+    this.setState(newData);
     console.log(newData);
   }
   selectCinemaChange(e) {
