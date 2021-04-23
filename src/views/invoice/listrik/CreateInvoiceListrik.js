@@ -155,7 +155,7 @@ export default class CreateInvoiceLsitrik extends React.Component {
                   <Select
                     name="cinemaId"
                     options={optionCinema}
-                    value={this.state.cinemaId}
+                    value={optionCinema.filter((opt)=>opt.value===this.state.cinemaId)}
                     onChange={this.selectCinemaChange}
                   />
                   {/* <CInput
