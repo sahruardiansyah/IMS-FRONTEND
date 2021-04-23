@@ -140,6 +140,16 @@ export default class ListAllVendor extends React.Component {
   showCreateModal() {
     this.setState({
       showCreateModal: !this.state.showCreateModal,
+      data: {
+        id:"",
+        vendorAddress: "",
+        vendorName: "",
+        vendorRepresentation: "",
+        email: "",
+        kota: "",
+        postCode: "",
+        telepon: ""
+      }
     });
   }
   toggle() {
