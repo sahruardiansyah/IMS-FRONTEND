@@ -155,6 +155,16 @@ export default class ListAllCinema extends React.Component {
   showCreateModal() {
     this.setState({
       showCreateModal: !this.state.showCreateModal,
+      data: {
+        id: "",
+        nama: "",
+        email: "",
+        noHp: "",
+        tipe: "",
+        kota: "",
+        alamat: "",
+        keterangan: "",
+      }
     });
   }
 
@@ -177,7 +187,8 @@ export default class ListAllCinema extends React.Component {
 
   reloadTable() {
     CinemaService.getCinema().then((res) => {
-      this.setState({ cinemas: res.data });
+      this.setState({ cinemas: res.data,
+       });
     });
   }
 
