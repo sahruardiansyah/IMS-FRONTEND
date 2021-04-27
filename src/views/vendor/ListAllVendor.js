@@ -207,7 +207,7 @@ export default class ListAllVendor extends React.Component {
                       style={{ marginLeft: "10px" }}
                       onClick={this.showCreateModal}
                     >
-                      Add Vendor With Modal
+                      Add Vendor
                     </CButton>
                   </td>
                 </thead>

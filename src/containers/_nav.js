@@ -318,10 +318,23 @@ const _nav =  [
         to: '/setting/vendors',
       },
       {
-        _tag: 'CSidebarNavItem',
-        name: 'Cinema',
+        _tag: 'CSidebarNavDropdown',
+        name: 'Cinema & Theater',
         to: '/setting/cinema',
-      }
+        _children:[
+          {
+            _tag: 'CSidebarNavItem',
+            name: 'Cinema',
+            to: '/setting/cinema',
+          },
+          {
+            _tag: 'CSidebarNavItem',
+            name: 'theater',
+            to: '/setting/cinema/theater',
+          }
+        ]
+      },
+
     ],
   },
   {

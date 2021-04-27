@@ -8,8 +8,8 @@ class InvoiceListrikService{
     createInvoiceListrik(invoice){
         return axios.post(INVOICE_LISTRIK_BASE_API_URL,invoice);
     }
-    getInvoiceListrikByInvoiceNo(id){
-        return axios.get(INVOICE_LISTRIK_BASE_API_URL+id);
+    getInvoiceListrikByInvoiceNo(invoiceNo){
+        return axios.get(INVOICE_LISTRIK_BASE_API_URL+invoiceNo);
     }
     updateInvoiceListrik(invoice,id){
         return axios.put(INVOICE_LISTRIK_BASE_API_URL+id,invoice);

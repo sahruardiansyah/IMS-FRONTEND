@@ -217,7 +217,7 @@ export default class ListAllCinema extends React.Component {
                       style={{ marginLeft: "10px" }}
                       onClick={this.showCreateModal}
                     >
-                      Add Cinema With Modal
+                      Add Cinema
                     </CButton>
                   </td>
                   <td>

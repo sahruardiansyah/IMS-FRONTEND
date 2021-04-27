@@ -1,4 +1,5 @@
 import React from "react";
+import YearMonthPicker from 'react-year-month-picker'
 import {
   CCard,
   CCardBody,
@@ -28,14 +29,13 @@ export default class CreateInvoiceLsitrik extends React.Component {
       cinemaId: "",
       vendorId: "",
       invoiceDate: "",
-      invoicePeriode: new Date(),
+      invoicePeriode: "",
       ppn: "",
       materai: "",
       amountTotal: "",
       keterangan: "",
       status: false,
       selectCinema: [],
-      // id:"",
       namaCinema: "",
       selectVendor: [],
       namaVendor: "",
@@ -45,20 +45,19 @@ export default class CreateInvoiceLsitrik extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.selectCinemaChange = this.selectCinemaChange.bind(this);
     this.selectVendorChange = this.selectVendorChange.bind(this);
+    this.onChangePeriod = this.onChangePeriod.bind(this);
   }
   componentDidMount() {
     CinemaService.getCinema().then((res) => {
       this.setState({ selectCinema: res.data });
     });
-    this.state.selectCinema.map((data) => {
-      this.setState({ cinemaId: data.id, namaCinema: data.nama });
-    });
     VendorService.getVendor().then((res) => {
       this.setState({ selectVendor: res.data });
     });
-    this.state.selectVendor.map((data) => {
-      this.setState({ vendorId: data.id, namaVendor: data.vendorName });
-    });
+
+  }
+  onChangePeriod(e){
+    this.setState({invoicePeriode : e}, ()=>console.log(this.state.invoicePeriode))
   }
 
   onChange(e) {
@@ -175,15 +174,9 @@ export default class CreateInvoiceLsitrik extends React.Component {
                   <Select
                     name="cinemaId"
                     options={optionVendor}
-                    value={this.state.vendorId}
+                    value={optionVendor.filter((opt)=>opt.value===this.state.vendorId)}
                     onChange={this.selectVendorChange}
                   />
-                  {/* <CSelect
-                    name="vendor"
-                    onChange={this.onChange}
-                    value={this.state.vendorId}
-                  /> */}
-                  {this.state.namaVendor}
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -213,6 +206,7 @@ export default class CreateInvoiceLsitrik extends React.Component {
                     onChange={this.onChange}
                     value={this.state.invoicePeriode}
                   />
+                  
                   {/* <DatePicker
                     dateFormat="mm yyyy"
                     showMonthYearDropdown
