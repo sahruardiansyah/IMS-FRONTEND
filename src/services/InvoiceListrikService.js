@@ -8,6 +8,12 @@ class InvoiceListrikService{
     createInvoiceListrik(invoice){
         return axios.post(INVOICE_LISTRIK_BASE_API_URL,invoice);
     }
+    createInvoiceListrikParameter(invoice){
+        return axios.post(INVOICE_LISTRIK_BASE_API_URL+"parameter/",invoice)
+    }
+    getInvoiceListrikParameter(invoiceNo){
+        return axios.get(INVOICE_LISTRIK_BASE_API_URL+"parameter/"+invoiceNo)
+    }
     getInvoiceListrikByInvoiceNo(invoiceNo){
         return axios.get(INVOICE_LISTRIK_BASE_API_URL+invoiceNo);
     }

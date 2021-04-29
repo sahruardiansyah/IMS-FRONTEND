@@ -331,7 +331,6 @@ export default class TheaterList extends React.Component {
                     ></Select>
                   </CCol>
                 </CFormGroup>
-              
               </CModalBody>
               <CModalFooter>
               <CButton
