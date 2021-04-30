@@ -15,13 +15,14 @@ const ParameterList = props => {
         return (
             <div className="form-row" key={val.index}>
                 <div className="col">
-                    <label>LWBP Awal</label>
+                    <label>LWBP Awal </label>
                     <input
                         type="number"
                         className="form-control required"
                         name="lwbpAwal"
                         data-id={idx}
                         id={lwbpAwal}
+                        value={val.lwbpAwal}
 
                     />
                 </div>
@@ -33,6 +34,7 @@ const ParameterList = props => {
                         name="lwbpAkhir"
                         id={lwbpAkhir}
                         data-id={idx}
+                        value={val.lwbpAkhir}
 
                     />
                 </div>
@@ -44,6 +46,7 @@ const ParameterList = props => {
                         name="usageLwbp"
                         id={usageLwbp}
                         data-id={idx}
+                        value={val.usageLwbp}
 
                     />
                 </div>
@@ -55,6 +58,7 @@ const ParameterList = props => {
                         name="wbpAwal"
                         id={wbpAwal}
                         data-id={idx}
+                        value={val.wbpAwal}
 
                     />
                 </div>
@@ -66,6 +70,7 @@ const ParameterList = props => {
                         name="wbpAkhir"
                         id={wbpAkhir}
                         data-id={idx}
+                        value={val.wbpAkhir}
 
                     />
                 </div>
@@ -77,10 +82,11 @@ const ParameterList = props => {
                         name="usageWbp"
                         id={usagWbp}
                         data-id={idx}
+                        value={val.usagWbp}
 
                     />
                 </div>
-                <div className="col">
+                {/* <div className="col">
                     <label>WBP Usage</label>
                     <input
                         type="number"
@@ -88,9 +94,10 @@ const ParameterList = props => {
                         name="usageWbp"
                         id={usagWbp}
                         data-id={idx}
+                        value={val.usagWbp}
 
                     />
-                </div>
+                </div> */}
                 <div className="col">
                     <label>Denda</label>
                     <input
@@ -99,6 +106,7 @@ const ParameterList = props => {
                         name="denda"
                         id={denda}
                         data-id={idx}
+                        value={val.denda}
 
                     />
                 </div>
@@ -110,6 +118,7 @@ const ParameterList = props => {
                         name="denda"
                         id={lineKeterangan}
                         data-id={idx}
+                        value={val.lineKeterangan}
 
                     />
                 </div>
@@ -121,6 +130,7 @@ const ParameterList = props => {
                         name="amountLine"
                         id={amountLine}
                         data-id={idx}
+                        value={val.amountLine}
 
                     />
                 </div>

@@ -45,7 +45,8 @@ const AddCinema = React.lazy(()=> import('./views/cinema/CreateCinema'));
 const UpdateCinema = React.lazy(() => import('./views/cinema/UpdateCinema'));
 const InvoiceListrik = React.lazy(()=> import('./views/invoice/listrik/ListInvoiceListrik'));
 const AddInvoiceListrik = React.lazy(()=> import('./views/invoice/listrik/CreateInvoiceListrik'));
-const Theater = React.lazy(()=>import('./views/theater/TheaterList'))
+const Theater = React.lazy(()=>import('./views/theater/TheaterList'));
+const InvoiceAir = React.lazy(()=> import('./views/invoice/air/ListInvoiceAir'));
 
 
 const routes = [
@@ -97,7 +98,8 @@ const routes = [
   { path: '/setting/update-cinema/:id', exact: true,  name: 'Add New Cinema', component: UpdateCinema },
   { path: '/invoice/listrik', exact: true,  name: 'Invoice Listrik', component: InvoiceListrik },
   { path: '/invoice/listrik/add-invoice', exact: true,  name: 'Add New Invoice Listrik', component: AddInvoiceListrik },
-  { path: '/setting/cinema/theater', exact: true,  name: 'Theater', component: Theater }
+  { path: '/setting/cinema/theater', exact: true,  name: 'Theater', component: Theater },
+  { path: '/invoice/air', exact: true,  name: 'Invoice Air', component: InvoiceAir },
 ];
 
 export default routes;

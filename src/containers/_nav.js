@@ -351,7 +351,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: 'Invoice Air',
-        to: '/buttons/brand-buttons',
+        to: '/invoice/air',
       }
     ],
   }

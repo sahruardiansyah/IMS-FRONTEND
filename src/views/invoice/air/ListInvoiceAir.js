@@ -22,10 +22,9 @@ import {
   Button,
 } from "reactstrap";
 import CinemaService from "src/services/CinemaService";
-import InvoiceListrikService from "src/services/InvoiceListrikService";
 import VendorService from "src/services/VendorService";
 import Select from "react-select";
-import ParameterList from "./ParameterList";
+import InvoiceAirService from "src/services/InvoiceAirService";
 export default class ListInvoiceListrik extends React.Component {
   constructor(props) {
     super(props);
@@ -48,14 +47,12 @@ export default class ListInvoiceListrik extends React.Component {
       selectVendor: [],
       parameterList:[
         {
-        id: Math.random(),
-        lwbpAwal:"",
-        lwbpAkhir:"",
-        usageLwbp:"",
-        wbpAwal:"",
-        wbpAkhir:"",
-        usagWbp:"",
-        denda:"",
+        index: Math.random(),
+        id: "",
+        awal:"",
+        akhir:"",
+        airUsage:"",
+        tarif:"",
         lineKeterangan:"",
         amountLine:"",
 
@@ -70,63 +67,62 @@ export default class ListInvoiceListrik extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.selectCinemaChange = this.selectCinemaChange.bind(this);
     this.selectVendorChange = this.selectVendorChange.bind(this);
-    this.createInvoiceListrik = this.createInvoiceListrik.bind(this);
-    this.updateInvoiceListik = this.updateInvoiceListik.bind(this);
-    this.addNewRow = this.addNewRow.bind(this);
-    this.handleChange=this.handleChange.bind(this);
-    this.deleteRow = this.deleteRow.bind(this);
-    this.clickOnDelete=this.clickOnDelete.bind(this);
-    this.createInvoiceListrikParameter=this.createInvoiceListrikParameter.bind(this);
+    this.createInvoiceAir = this.createInvoiceAir.bind(this);
+    this.updateInvoiceAir = this.updateInvoiceAir.bind(this);
+    // this.addNewRow = this.addNewRow.bind(this);
+    // this.handleChange=this.handleChange.bind(this);
+    // this.deleteRow = this.deleteRow.bind(this);
+    // this.clickOnDelete=this.clickOnDelete.bind(this);
+    // this.createInvoiceListrikParameter=this.createInvoiceListrikParameter.bind(this);
 
   }
 
-  handleChange = (e) => {
-    if (["invoiceNo", "lwbpAwal", "lwbpAkhir", "usageLwbp", "wbpAwal","wbpAkhir","usageWbp","denda","lineKeterangan","amountLine"].includes(e.target.name)) {
-        let parameterList = [...this.state.parameterList]
-        parameterList[e.target.dataset.id][e.target.name] = e.target.value;
-    } else {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-    console.log(this.state.parameterList)
-}
+//   handleChange = (e) => {
+//     if (["invoiceNo", "lwbpAwal", "lwbpAkhir", "usageLwbp", "wbpAwal","wbpAkhir","usageWbp","denda","lineKeterangan","amountLine"].includes(e.target.name)) {
+//         let parameterList = [...this.state.parameterList]
+//         parameterList[e.target.dataset.id][e.target.name] = e.target.value;
+//         // console.log(parameterList)
+//     } else {
+//         this.setState({ [e.target.name]: e.target.value })
+//     }
+//     console.log(this.state.parameterList)
+// }
 
-addNewRow = e => {
-  this.setState(prevState => ({
-    parameterList: [
-      ...prevState.parameterList,
-      {
-        index: Math.random(),
-        lwbpAwal:"",
-        lwbpAkhir:"",
-        usageLwbp:"",
-        wbpAwal:"",
-        wbpAkhir:"",
-        usagWbp:"",
-        denda:"",
-        lineKeterangan:"",
-        amountLine:"",
-      }
-    ]
-  }));
-  console.log("doing add new parameter")
-};
+// addNewRow = e => {
+//   this.setState(prevState => ({
+//     parameterList: [
+//       ...prevState.parameterList,
+//       {
+//         index: Math.random(),
+//         id: "",
+//         awal:"",
+//         akhir:"",
+//         airUsage:"",
+//         tarif:"",
+//         lineKeterangan:"",
+//         amountLine:"",
+//       }
+//     ]
+//   }));
+//   console.log("doing add new parameter")
+// };
 
-deleteRow = index => {
-  this.setState({
-    parameterList: this.state.parameterList.filter(
-      (s, sindex) => index !== sindex
-    )
-  });
-  console.log("doing delete parameter")
-};
+// deleteRow = index => {
+//   this.setState({
+//     parameterList: this.state.parameterList.filter(
+//       (s, sindex) => index !== sindex
+//     )
+//   });
+//   console.log("doing delete parameter")
+// };
 
-clickOnDelete(record) {
-  this.setState({
-    parameterList: this.state.parameterList.filter(r => r !== record)
-  });
-}
+// clickOnDelete(record) {
+//   this.setState({
+//     parameterList: this.state.parameterList.filter(r => r !== record)
+//   });
+// }
 
-  updateInvoiceListik = (e) =>{
+  updateInvoiceAir = (e) =>{
     e.preventDefault()
     let invoice ={
       cinemaId: this.state.cinemaId,
@@ -139,7 +135,7 @@ clickOnDelete(record) {
       keterangan: this.state.keterangan,
       status: this.state.status,
     }
-    InvoiceListrikService.updateInvoiceListrik(invoice,this.state.invoiceNo).then((res)=>{
+    InvoiceAirService.updateInvoiceAir(invoice,this.state.invoiceNo).then((res)=>{
       this.setState({showUpdateModal: false})
       console.log(res);
       this.reloadTable();
@@ -147,7 +143,7 @@ clickOnDelete(record) {
   }
 
   showUpdateModal(invoiceNo) {
-    InvoiceListrikService.getInvoiceListrikByInvoiceNo(invoiceNo).then((res) => {
+    InvoiceAirService.getInvoiceAirByInvoiceNo(invoiceNo).then((res) => {
       let currentInvoice = res.data;
       this.setState({
         showUpdateModal: !this.state.showUpdateModal,
@@ -164,13 +160,13 @@ clickOnDelete(record) {
       });
       console.log(currentInvoice)
     });
-    InvoiceListrikService.getInvoiceListrikParameter(invoiceNo).then((res)=>{
-        this.setState({parameterList : res.data })
-        console.log(this.state.parameterList)
-    })
+    // InvoiceAirService.getInvoiceListrikParameter(invoiceNo).then((res)=>{
+    //     console.log(res.data)
+
+    // })
   }
   
-  createInvoiceListrik = (e) => {
+  createInvoiceAir = (e) => {
     e.preventDefault();
     let invoice = {
       invoiceNo: this.state.invoiceNo,
@@ -184,33 +180,33 @@ clickOnDelete(record) {
       keterangan: this.state.keterangan,
       status: this.state.status,
     };
-    InvoiceListrikService.createInvoiceListrik(invoice).then((res) => {
+    InvoiceAirService.createInvoiceAir(invoice).then((res) => {
       this.setState({showCreateModal: false})
       console.log(res);
-      this.createInvoiceListrikParameter();
+      this.reloadTable();
+    //   this.createInvoiceListrikParameter();
     });
-    this.reloadTable();
   };
 
-  createInvoiceListrikParameter=(e)=>{
-    this.state.parameterList.map((parameter)=>{
-      let newData ={
-        invoiceNo:this.state.invoiceNo,
-        lwbpAwal:parameter.lwbpAwal,
-        lwbpAkhir:parameter.lwbpAkhir,
-        usageLwbp:parameter.usageLwbp,
-        wbpAwal:parameter.wbpAwall,
-        wbpAkhir:parameter.wbpAkhir,
-        usagWbp:parameter.usagWbp,
-        denda:parameter.denda,
-        lineKeterangan:parameter.lineKeterangan,
-        amountLine:parameter.amountLine,
-      }
-      InvoiceListrikService.createInvoiceListrikParameter(newData).then((res)=>{
-        console.log(res.data);
-      })
-    })
-  }
+//   createInvoiceListrikParameter=(e)=>{
+//     this.state.parameterList.map((parameter)=>{
+//       let newData ={
+//         invoiceNo:this.state.invoiceNo,
+//         lwbpAwal:parameter.lwbpAwal,
+//         lwbpAkhir:parameter.lwbpAkhir,
+//         usageLwbp:parameter.usageLwbp,
+//         wbpAwal:parameter.wbpAwall,
+//         wbpAkhir:parameter.wbpAkhir,
+//         usagWbp:parameter.usagWbp,
+//         denda:parameter.denda,
+//         lineKeterangan:parameter.lineKeterangan,
+//         amountLine:parameter.amountLine,
+//       }
+//       InvoiceListrikService.createInvoiceListrikParameter(newData).then((res)=>{
+//         console.log(res.data);
+//       })
+//     })
+//   }
   getCinemas(){
     CinemaService.getCinema().then((res) => {
       this.setState({ selectCinema: res.data });
@@ -251,20 +247,6 @@ clickOnDelete(record) {
       amountTotal: "",
       keterangan: "",
       status: false,
-      parameterList:[
-        {
-        id: Math.random(),
-        lwbpAwal:"",
-        lwbpAkhir:"",
-        usageLwbp:"",
-        wbpAwal:"",
-        wbpAkhir:"",
-        usagWbp:"",
-        denda:"",
-        lineKeterangan:"",
-        amountLine:"",
-
-      }]
     });
   }
 
@@ -277,7 +259,7 @@ clickOnDelete(record) {
   }
 
   reloadTable() {
-    InvoiceListrikService.getInvoiceListrik().then((res) => {
+    InvoiceAirService.getInvoiceAir().then((res) => {
       this.setState({ invoice: res.data,
        });
     });
@@ -310,7 +292,7 @@ clickOnDelete(record) {
 
 
   deleteInvoice(id) {
-      InvoiceListrikService.deleteInvoice(id).then((res) => {
+      InvoiceAirService.deleteInvoice(id).then((res) => {
         this.setState({
           show: false,
         });
@@ -344,13 +326,13 @@ clickOnDelete(record) {
         optionVendor.push(roleDate);
       });
     }
-    let { parameterList } = this.state;
+    // let { parameterList } = this.state;
     return (
       <Row>
         <Col>
           <Card>
             <CardHeader>
-              <h2>Daftar Invoice Listrik</h2>
+              <h2>Daftar Invoice Air</h2>
             </CardHeader>
             <CardBody>
               <Table>
@@ -544,20 +526,20 @@ clickOnDelete(record) {
                   />
                 </CCol>
               </CFormGroup>
-              <form onChange={this.handleChange}>
+              {/* <form onChange={this.handleChange}>
               <ParameterList
                 add={this.addNewRow}
                 delete={this.clickOnDelete}
-                parameterList={parameterList}
-                value={this.state.parameterList}/>
-                </form>
+                parameterList={parameterList}/>
+                {/* {JSON.stringify(parameterList)} */}
+                {/* </form>  */}
                 </CModalBody>
                 <CModalFooter>
                 <CButton
                 type="submit"
                 size="sm"
                 color="primary"
-                onClick={this.createInvoiceListrik}
+                onClick={this.createInvoiceAir}
               >
                 <CIcon name="cil-scrubber" /> Submit
               </CButton>{" "}
@@ -572,7 +554,7 @@ clickOnDelete(record) {
                 </CModalFooter>
               </CModal>
             <CModal size="xl" show={this.state.showUpdateModal} onclose={this.toggleUpdate}>
-              <CModalHeader> Edit Invoice Listrik</CModalHeader>
+              <CModalHeader> Edit Invoice Air</CModalHeader>
               <CModalBody>
               <CFormGroup row>
                 <CCol md="2">
@@ -686,13 +668,13 @@ clickOnDelete(record) {
                     value={this.state.keterangan}
                   />
                 </CCol>
-                <form onChange={this.handleChange}>
+                {/* <form onChange={this.handleChange}>
               <ParameterList
                 add={this.addNewRow}
                 delete={this.clickOnDelete}
                 parameterList={parameterList}/>
                 {/* {JSON.stringify(this.state.parameterList)} */}
-                </form>
+                {/* </form>  */}
               </CFormGroup>
 
               </CModalBody>
@@ -701,7 +683,7 @@ clickOnDelete(record) {
                 type="submit"
                 size="sm"
                 color="primary"
-                onClick={this.updateInvoiceListik}
+                onClick={this.updateInvoiceAir}
               >
                 <CIcon name="cil-scrubber" /> Submit
               </CButton>{" "}
