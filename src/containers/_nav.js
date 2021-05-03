@@ -352,6 +352,11 @@ const _nav =  [
         _tag: 'CSidebarNavItem',
         name: 'Invoice Air',
         to: '/invoice/air',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Invoice Gas',
+        to: '/invoice/gas',
       }
     ],
   }

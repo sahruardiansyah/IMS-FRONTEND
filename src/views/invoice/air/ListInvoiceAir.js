@@ -25,6 +25,7 @@ import CinemaService from "src/services/CinemaService";
 import VendorService from "src/services/VendorService";
 import Select from "react-select";
 import InvoiceAirService from "src/services/InvoiceAirService";
+import ParameterList from "./ParameterLIst";
 export default class ListInvoiceListrik extends React.Component {
   constructor(props) {
     super(props);
@@ -47,8 +48,7 @@ export default class ListInvoiceListrik extends React.Component {
       selectVendor: [],
       parameterList:[
         {
-        index: Math.random(),
-        id: "",
+        id: Math.random(),
         awal:"",
         akhir:"",
         airUsage:"",
@@ -69,58 +69,58 @@ export default class ListInvoiceListrik extends React.Component {
     this.selectVendorChange = this.selectVendorChange.bind(this);
     this.createInvoiceAir = this.createInvoiceAir.bind(this);
     this.updateInvoiceAir = this.updateInvoiceAir.bind(this);
-    // this.addNewRow = this.addNewRow.bind(this);
-    // this.handleChange=this.handleChange.bind(this);
-    // this.deleteRow = this.deleteRow.bind(this);
-    // this.clickOnDelete=this.clickOnDelete.bind(this);
-    // this.createInvoiceListrikParameter=this.createInvoiceListrikParameter.bind(this);
+    this.addNewRow = this.addNewRow.bind(this);
+    this.handleChange=this.handleChange.bind(this);
+    this.deleteRow = this.deleteRow.bind(this);
+    this.clickOnDelete=this.clickOnDelete.bind(this);
+    this.createInvoiceAirParameter=this.createInvoiceAirParameter.bind(this);
 
   }
 
-//   handleChange = (e) => {
-//     if (["invoiceNo", "lwbpAwal", "lwbpAkhir", "usageLwbp", "wbpAwal","wbpAkhir","usageWbp","denda","lineKeterangan","amountLine"].includes(e.target.name)) {
-//         let parameterList = [...this.state.parameterList]
-//         parameterList[e.target.dataset.id][e.target.name] = e.target.value;
-//         // console.log(parameterList)
-//     } else {
-//         this.setState({ [e.target.name]: e.target.value })
-//     }
-//     console.log(this.state.parameterList)
-// }
+  handleChange = (e) => {
+    if (["invoiceNo", "awal", "akhir", "airUsage","lineKeterangan","amountLine"].includes(e.target.name)) {
+        let parameterList = [...this.state.parameterList]
+        parameterList[e.target.dataset.id][e.target.name] = e.target.value;
+        // console.log(parameterList)
+    } else {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+    console.log(this.state.parameterList)
+}
 
-// addNewRow = e => {
-//   this.setState(prevState => ({
-//     parameterList: [
-//       ...prevState.parameterList,
-//       {
-//         index: Math.random(),
-//         id: "",
-//         awal:"",
-//         akhir:"",
-//         airUsage:"",
-//         tarif:"",
-//         lineKeterangan:"",
-//         amountLine:"",
-//       }
-//     ]
-//   }));
-//   console.log("doing add new parameter")
-// };
+addNewRow = e => {
+  this.setState(prevState => ({
+    parameterList: [
+      ...prevState.parameterList,
+      {
+        index: Math.random(),
+        id: "",
+        awal:"",
+        akhir:"",
+        airUsage:"",
+        tarif:"",
+        lineKeterangan:"",
+        amountLine:"",
+      }
+    ]
+  }));
+  console.log("doing add new parameter")
+};
 
-// deleteRow = index => {
-//   this.setState({
-//     parameterList: this.state.parameterList.filter(
-//       (s, sindex) => index !== sindex
-//     )
-//   });
-//   console.log("doing delete parameter")
-// };
+deleteRow = index => {
+  this.setState({
+    parameterList: this.state.parameterList.filter(
+      (s, sindex) => index !== sindex
+    )
+  });
+  console.log("doing delete parameter")
+};
 
-// clickOnDelete(record) {
-//   this.setState({
-//     parameterList: this.state.parameterList.filter(r => r !== record)
-//   });
-// }
+clickOnDelete(record) {
+  this.setState({
+    parameterList: this.state.parameterList.filter(r => r !== record)
+  });
+}
 
   updateInvoiceAir = (e) =>{
     e.preventDefault()
@@ -184,29 +184,26 @@ export default class ListInvoiceListrik extends React.Component {
       this.setState({showCreateModal: false})
       console.log(res);
       this.reloadTable();
-    //   this.createInvoiceListrikParameter();
+      this.createInvoiceAirParameter();
     });
   };
 
-//   createInvoiceListrikParameter=(e)=>{
-//     this.state.parameterList.map((parameter)=>{
-//       let newData ={
-//         invoiceNo:this.state.invoiceNo,
-//         lwbpAwal:parameter.lwbpAwal,
-//         lwbpAkhir:parameter.lwbpAkhir,
-//         usageLwbp:parameter.usageLwbp,
-//         wbpAwal:parameter.wbpAwall,
-//         wbpAkhir:parameter.wbpAkhir,
-//         usagWbp:parameter.usagWbp,
-//         denda:parameter.denda,
-//         lineKeterangan:parameter.lineKeterangan,
-//         amountLine:parameter.amountLine,
-//       }
-//       InvoiceListrikService.createInvoiceListrikParameter(newData).then((res)=>{
-//         console.log(res.data);
-//       })
-//     })
-//   }
+  createInvoiceAirParameter=(e)=>{
+    this.state.parameterList.map((parameter)=>{
+      let newData ={
+        invoiceNo: this.state.invoiceNo,
+        awal:parameter.awal,
+        akhir:parameter.akhir,
+        airUsage:parameter.airUsage,
+        tarif:parameter.tarif,
+        lineKeterangan:parameter.lineKeterangan,
+        amountLine:parameter.amountLine,
+      }
+      InvoiceAirService.createInvoiceAirParameter(newData).then((res)=>{
+        console.log(res.data);
+      })
+    })
+  }
   getCinemas(){
     CinemaService.getCinema().then((res) => {
       this.setState({ selectCinema: res.data });
@@ -326,7 +323,7 @@ export default class ListInvoiceListrik extends React.Component {
         optionVendor.push(roleDate);
       });
     }
-    // let { parameterList } = this.state;
+    let { parameterList } = this.state;
     return (
       <Row>
         <Col>
@@ -526,13 +523,13 @@ export default class ListInvoiceListrik extends React.Component {
                   />
                 </CCol>
               </CFormGroup>
-              {/* <form onChange={this.handleChange}>
+               <form onChange={this.handleChange}>
               <ParameterList
                 add={this.addNewRow}
                 delete={this.clickOnDelete}
                 parameterList={parameterList}/>
                 {/* {JSON.stringify(parameterList)} */}
-                {/* </form>  */}
+                 </form>   
                 </CModalBody>
                 <CModalFooter>
                 <CButton

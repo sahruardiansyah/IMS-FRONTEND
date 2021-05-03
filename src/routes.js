@@ -47,6 +47,7 @@ const InvoiceListrik = React.lazy(()=> import('./views/invoice/listrik/ListInvoi
 const AddInvoiceListrik = React.lazy(()=> import('./views/invoice/listrik/CreateInvoiceListrik'));
 const Theater = React.lazy(()=>import('./views/theater/TheaterList'));
 const InvoiceAir = React.lazy(()=> import('./views/invoice/air/ListInvoiceAir'));
+const InvoiceGas= React.lazy(()=>import('./views/invoice/gas/ListInvoiceGas'));
 
 
 const routes = [
@@ -100,6 +101,7 @@ const routes = [
   { path: '/invoice/listrik/add-invoice', exact: true,  name: 'Add New Invoice Listrik', component: AddInvoiceListrik },
   { path: '/setting/cinema/theater', exact: true,  name: 'Theater', component: Theater },
   { path: '/invoice/air', exact: true,  name: 'Invoice Air', component: InvoiceAir },
+  { path: '/invoice/gas', exact: true,  name: 'Invoice Gas', component: InvoiceGas },
 ];
 
 export default routes;

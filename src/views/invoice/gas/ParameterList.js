@@ -4,7 +4,7 @@ const ParameterList = props => {
         let 
             awal = `awal-${idx}`,
             akhir = `akhir-${idx}`,
-            airUsage = `airUsage-${idx}`,
+            gasUsage = `gasUsage-${idx}`,
             tarif = `denda-${idx}`,
             lineKeterangan = `lineKeterangan-${idx}`,
             amountLine = `amountLine-${idx}`;
@@ -41,7 +41,7 @@ const ParameterList = props => {
                         type="number"
                         className="form-control required"
                         name="usage"
-                        id={airUsage}
+                        id={gasUsage}
                         data-id={idx}
                         // value={val.airUsage}
 
