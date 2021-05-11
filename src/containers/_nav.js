@@ -357,6 +357,11 @@ const _nav =  [
         _tag: 'CSidebarNavItem',
         name: 'Invoice Gas',
         to: '/invoice/gas',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Invoice Outsourcing',
+        to: '/invoice/outsourcing',
       }
     ],
   }

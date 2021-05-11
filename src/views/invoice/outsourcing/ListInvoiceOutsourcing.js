@@ -20,13 +20,14 @@ import {
   CardHeader,
   Card,
   Button,
+  Label,
 } from "reactstrap";
 import CinemaService from "src/services/CinemaService";
 import VendorService from "src/services/VendorService";
 import Select from "react-select";
-import ParameterList from "./ParameterList";
-import InvoiceGasService from "src/services/InvoiceGasService";
-export default class ListInvoiceGas extends React.Component {
+import ParameterList from "./ParameterList"
+import InvoiceOutsourcingService from "src/services/InvoiceOutsourcingService";
+export default class ListInvoiceListrik extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,12 +50,8 @@ export default class ListInvoiceGas extends React.Component {
       parameterList:[
         {
         id: Math.random(),
-        awal:"",
-        akhir:"",
-        gasUsage:"",
-        tarif:"",
-        lineKeterangan:"",
-        amountLine:"",
+        manPower:"",
+
 
       }]
     };
@@ -67,18 +64,18 @@ export default class ListInvoiceGas extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.selectCinemaChange = this.selectCinemaChange.bind(this);
     this.selectVendorChange = this.selectVendorChange.bind(this);
-    this.createInvoiceGas = this.createInvoiceGas.bind(this);
-    this.updateInvoiceGas = this.updateInvoiceGas.bind(this);
+    this.createInvoiceOutsourcing = this.createInvoiceOutsourcing.bind(this);
+    this.updateInvoiceOutsourcing = this.updateInvoiceOutsourcing.bind(this);
     this.addNewRow = this.addNewRow.bind(this);
     this.handleChange=this.handleChange.bind(this);
     this.deleteRow = this.deleteRow.bind(this);
     this.clickOnDelete=this.clickOnDelete.bind(this);
-    this.createInvoiceGasParameter=this.createInvoiceGasParameter.bind(this);
+    this.createInvoiceOutsourcingParameter=this.createInvoiceOutsourcingParameter.bind(this);
 
   }
 
   handleChange = (e) => {
-    if (["invoiceNo", "awal", "akhir", "gasUsage","lineKeterangan","amountLine"].includes(e.target.name)) {
+    if (["invoiceNo", "manPower"].includes(e.target.name)) {
         let parameterList = [...this.state.parameterList]
         parameterList[e.target.dataset.id][e.target.name] = e.target.value;
         // console.log(parameterList)
@@ -93,18 +90,11 @@ addNewRow = e => {
     parameterList: [
       ...prevState.parameterList,
       {
-        index: Math.random(),
-        id: "",
-        awal:"",
-        akhir:"",
-        gasUsage:"",
-        tarif:"",
-        lineKeterangan:"",
-        amountLine:"",
+        id: Math.random(),
+        manPower:"",
       }
     ]
   }));
-  console.log("doing add new parameter")
 };
 
 deleteRow = index => {
@@ -122,7 +112,7 @@ clickOnDelete(record) {
   });
 }
 
-  updateInvoiceGas = (e) =>{
+  updateInvoiceOutsourcing = (e) =>{
     e.preventDefault()
     let invoice ={
       cinemaId: this.state.cinemaId,
@@ -135,7 +125,7 @@ clickOnDelete(record) {
       keterangan: this.state.keterangan,
       status: this.state.status,
     }
-    InvoiceGasService.updateInvoiceGas(invoice,this.state.invoiceNo).then((res)=>{
+    InvoiceOutsourcingService.updateInvoiceOutsourcing(invoice,this.state.invoiceNo).then((res)=>{
       this.setState({showUpdateModal: false})
       console.log(res);
       this.reloadTable();
@@ -143,7 +133,7 @@ clickOnDelete(record) {
   }
 
   showUpdateModal(invoiceNo) {
-    InvoiceGasService.getInvoiceGasByInvoiceNo(invoiceNo).then((res) => {
+    InvoiceOutsourcingService.getInvoiceOutsourcingByInvoiceNo(invoiceNo).then((res) => {
       let currentInvoice = res.data;
       this.setState({
         showUpdateModal: !this.state.showUpdateModal,
@@ -166,7 +156,7 @@ clickOnDelete(record) {
     // })
   }
   
-  createInvoiceGas = (e) => {
+  createInvoiceOutsourcing = (e) => {
     e.preventDefault();
     let invoice = {
       invoiceNo: this.state.invoiceNo,
@@ -180,26 +170,21 @@ clickOnDelete(record) {
       keterangan: this.state.keterangan,
       status: this.state.status,
     };
-    InvoiceGasService.createInvoiceGas(invoice).then((res) => {
+    InvoiceOutsourcingService.createInvoiceOutsourcing(invoice).then((res) => {
       this.setState({showCreateModal: false})
       console.log(res);
       this.reloadTable();
-      this.createInvoiceGasParameter();
+      this.createInvoiceOutsourcingParameter();
     });
   };
 
-  createInvoiceGasParameter=(e)=>{
+  createInvoiceOutsourcingParameter=(e)=>{
     this.state.parameterList.map((parameter)=>{
       let newData ={
         invoiceNo: this.state.invoiceNo,
-        awal:parameter.awal,
-        akhir:parameter.akhir,
-        gasUsage:parameter.gasUsage,
-        tarif:parameter.tarif,
-        lineKeterangan:parameter.lineKeterangan,
-        amountLine:parameter.amountLine,
+        manPower:parameter.awal,
       }
-      InvoiceGasService.createInvoiceGasParameter(newData).then((res)=>{
+      InvoiceOutsourcingService.createInvoiceOutsourcingParameter(newData).then((res)=>{
         console.log(res.data);
       })
     })
@@ -256,7 +241,7 @@ clickOnDelete(record) {
   }
 
   reloadTable() {
-    InvoiceGasService.getInvoiceGas().then((res) => {
+    InvoiceOutsourcingService.getInvoiceOutsourcing().then((res) => {
       this.setState({ invoice: res.data,
        });
     });
@@ -289,7 +274,7 @@ clickOnDelete(record) {
 
 
   deleteInvoice(id) {
-      InvoiceGasService.deleteInvoice(id).then((res) => {
+      InvoiceOutsourcingService.deleteInvoice(id).then((res) => {
         this.setState({
           show: false,
         });
@@ -329,7 +314,7 @@ clickOnDelete(record) {
         <Col>
           <Card>
             <CardHeader>
-              <h2>Daftar Invoice Gas</h2>
+              <h2>Daftar Invoice Outsourcing</h2>
             </CardHeader>
             <CardBody>
               <Table>
@@ -391,7 +376,7 @@ clickOnDelete(record) {
               </Table>
             </CardBody>
             <CModal show={this.state.show} onClose={this.toggle}>
-              <CModalHeader closeButton>Deleting Theater</CModalHeader>
+              <CModalHeader closeButton>Deleting Invoice</CModalHeader>
               <CModalBody>
                 Apa anda yakin ingin menghapus {this.state.invoiceNo}?
               </CModalBody>
@@ -524,11 +509,14 @@ clickOnDelete(record) {
                 </CCol>
               </CFormGroup>
                <form onChange={this.handleChange}>
-              <ParameterList
+            <div class="justify-content-center">
+              <Label > Man Power</Label>
+              <ParameterList 
                 add={this.addNewRow}
                 delete={this.clickOnDelete}
                 parameterList={parameterList}/>
                 {/* {JSON.stringify(parameterList)} */}
+                </div>
                  </form>   
                 </CModalBody>
                 <CModalFooter>
@@ -536,7 +524,7 @@ clickOnDelete(record) {
                 type="submit"
                 size="sm"
                 color="primary"
-                onClick={this.createInvoiceGas}
+                onClick={this.createInvoiceOutsourcing}
               >
                 <CIcon name="cil-scrubber" /> Submit
               </CButton>{" "}
@@ -551,7 +539,7 @@ clickOnDelete(record) {
                 </CModalFooter>
               </CModal>
             <CModal size="xl" show={this.state.showUpdateModal} onclose={this.toggleUpdate}>
-              <CModalHeader> Edit Invoice Gas</CModalHeader>
+              <CModalHeader> Edit Invoice Air</CModalHeader>
               <CModalBody>
               <CFormGroup row>
                 <CCol md="2">
@@ -680,7 +668,7 @@ clickOnDelete(record) {
                 type="submit"
                 size="sm"
                 color="primary"
-                onClick={this.updateInvoiceGas}
+                onClick={this.updateInvoiceOutsourcing}
               >
                 <CIcon name="cil-scrubber" /> Submit
               </CButton>{" "}
